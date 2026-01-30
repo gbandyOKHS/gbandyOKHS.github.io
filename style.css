@@ -12,12 +12,13 @@ body {
 }
 
 nav {
-    background: rgb(12, 9, 0);
+    background: rgb(31, 30, 30);
     margin: 0 auto;
     display: flex;
     padding: 10px;
     margin-bottom: 20px;
-    border: 25px white;
+    border: 10px rgb(255, 255, 255) ridge;
+    border-radius: 25px
 }
 
 h1 {
@@ -45,10 +46,16 @@ a {
     color: #837373;
 }
 
+a:hover {
+    color: white;
+}
+
 main {
-    background: rgb(16, 16, 16);
+    background: rgb(0, 0, 0);
     display: flex;
     margin-top: 20px;
+    border: 20px rgb(255, 255, 255) ridge;
+    border-radius: 10px;
 }
 
 .sidebar {
@@ -99,4 +106,53 @@ h2, h3 {
 #portfolio a {
   text-decoration: none;
   color: #8a8a8a;
+}
+
+@media screen and (min-width: 120px) and (max-width: 1080px) {
+  main {
+    height: 100ch;
+    zoom: 1.5;
+    display: grid;
+  }
+
+  h1 {
+    font-size: 44px;
+  }
+
+  h2 {
+    font-size: 42px;
+  }
+
+  h3 {
+    font-size: 36px;
+  }
+
+  #all-contents {
+    height: 100ch;
+    margin: none;
+  }
+
+  a {
+    font-size: 42px;
+  }
+
+  .sidebar {
+    margin-right: 0px;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .sidebar-img {
+    width: 100%;
+  }
+
+  p,
+  li {
+    font-size: 24px;
+  }
+
+  .content {
+    align-content: center;
+    justify-content: center;
+  }
 }
