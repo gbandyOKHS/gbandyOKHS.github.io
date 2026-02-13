@@ -47,22 +47,23 @@ createPlatform(800, 625, 100, 10);
 createPlatform(800, 380, 85, 10);
 createPlatform(350, 500, 350, 50);
 createPlatform(1390, 175, 5, 5);
+createPlatform(175, 650, 50, 100);
 
 
     // TODO 3 - Create Collectables
-createCollectable("steve", 50, 275);
-createCollectable("diamond", 1375, 25);
-createCollectable("max", 375, 275);
-createCollectable("database", 50, 700);
-createCollectable("grace", 1025, 260);
+createCollectable("coin", 50, 275);
+createCollectable("coin", 1375, 25);
+createCollectable("coin", 375, 275);
+createCollectable("coin", 50, 700);
+createCollectable("coin", 1025, 260);
 
 
     
     // TODO 4 - Create Cannons
-createCannon("left", 550, 100);
-createCannon("bottom", 1350, 25);
-createCannon("bottom", );
-createCannon("right", );
+createCannon("left", 500, 2000);
+createCannon("bottom", 1250, 750);
+createCannon("bottom", 818, 2000);
+createCannon("right", 500, 5000);
 
     
     
