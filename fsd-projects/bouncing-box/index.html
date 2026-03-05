@@ -6,12 +6,13 @@
     <script src="jquery.min.js"></script>
     <style>
       .box {
-        width: 70px;
-        height: 70px;
-        background-color: teal;
+        width: 109px;
+        height: 116px;
         font-size: 300%;
         text-align: center;
+        color: rgb(31, 143, 143);
         user-select: none;
+        background-image: url(GREEN\ BUG.png);
         display: block;
         position: absolute;
         top: 100px;
@@ -31,7 +32,7 @@
 
   <body class="board">
     <!-- HTML for the box -->
-    <div class="box">?</div>
+    <div class="box"></div>
 
     <script>
       (function () {
@@ -56,6 +57,7 @@
 
         // Every time the box is clicked, call the handleBoxClick Function (see below)
         box.on("click", handleBoxClick);
+        board.on("click", handleMisclick);
         // moves the Box to a new position on the screen along the X-Axis
         function moveBoxTo(newPositionX, newPositionY) {
           box.css("left", newPositionX);
@@ -79,16 +81,17 @@
       var speedY = 10;
       var boardHeight = jQuery(window).height();
       var randNum = Math.random() * boardWidth;
-      var clicks = 0;
+      var click = 0;
+      var condition = false;
         /**
          * This Function will be called 20 times/second.
          * Each time it is called, it should move the Box to a new location.
          * If the box drifts off the screen, turn it around!
          */
         function update() {
-        moveBoxTo(positionX, positionY);
-        positionX += speed;
-        positionY += speedY;
+          moveBoxTo(positionX, positionY);
+          positionX += speed;
+          positionY += speedY;
         
         
         if (positionX > boardWidth) {
@@ -110,13 +113,26 @@
          * - move the box to the left side of the screen.
          */
         function handleBoxClick() {
-        positionX = randNum;
-        changeBoxText(points);
-        points++;
-        speed = 3 * points + 10;
+          positionX = randNum;
+          changeBoxText(points);
+          points++;
+          speed = 3 * points + 10;
+          speedY = 3 * points + 10;
+          changeBoxText(points);
         }
 
-        
+        function handleMisclick() {
+          click++;
+          if (click > points + 9) {
+            endGame();
+            alert("game over");
+            location.reload();
+          }
+        }
+        function endGame() {
+          clearInterval(interval);
+          condition = true;
+        }
       })();
     </script>
   </body>
