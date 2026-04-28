@@ -21,4 +21,5 @@ const scenery = {
     loopWidth: 1400,
     instances: [{ x: 700, width: 50, height: 150, speedX: 0 }],
   },
+  
 };
