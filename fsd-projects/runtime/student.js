@@ -1,16 +1,18 @@
 function moveScenery() {
   // TODO 2: Move background scenery based on current level speed
+  var buildingInstance;
   for (var i = 0; i < scenery.building.instances.length; i++) {
-    var buildingInstance = scenery.building.instances[i];
-    buildingInstance.x = buildingInstance.speedX + currentLevel.speed;
-    if (buildingInstance.x + innerWidth < 0) {
+    buildingInstance = scenery.building.instances[i];
+    buildingInstance.x += buildingInstance.speedX - currentLevel.speed;
+    if (buildingInstance.x + buildingInstance.width < 0) {
       buildingInstance.x = scenery.building.loopWidth;
     }
   }
+  var lampInstance;
   for (var i = 0; i < scenery.lamp.instances.length; i++) {
-    var lampInstance = scenery.lamp.instances[i];
-    lampInstance.x = lampInstance.speedX + currentLevel.speed;
-    if (lampInstance.x + innerWidth < 0) {
+    lampInstance = scenery.lamp.instances[i];
+    lampInstance.x += lampInstance.speedX - currentLevel.speed;
+    if (lampInstance.x + lampInstance.width < 0) {
       lampInstance.x = scenery.lamp.loopWidth;
     }
   }
@@ -18,25 +20,24 @@ function moveScenery() {
 
 function generateLevel() {
   // TODO 3: Generate the current level's game objects
+  var currentObject;
   for (var i = 0; i < currentLevel.gameObjects.length; i++) {
-    var currentObject = currentLevel.gameObjects[i];
+    currentObject = currentLevel.gameObjects[i];
     create(currentObject);
-    console.log(currentObject.type, currentObject.kind);
   }
 }
 
 function create(obj) {
   // TODO 4: Create a game object based on its type and kind
-  var type = obj.type;
-  if (type === "obstacle") {
+  if (obj.type === "obstacle") {
     makeObstacle();
-  } else if (type === "enemy") {
+  } else if (obj.type === "enemy") {
     makeEnemy();
-  } else if (type === "powerup") {
+  } else if (obj.type === "powerup") {
     makePowerup();
-  } else if (type === "goal") {
+  } else if (obj.type === "goal") {
     makeGoal();
-  } else if (type === "platform") {
+  } else if (obj.type === "platform") {
     makePlatform();
   }
 }
@@ -45,19 +46,18 @@ function filterObjects(type) {
   // TODO 5: Return only the game objects of the specified type
   var matches = [];
   for (var i = 0; i < gameObjects.length; i++) {
-    if (gameObjects[i].type === type) {
-      matches.push(gameObjects[i]);
+    if (type === obj.type) {
+      matches.push(i);
     }
-    return matches;
   }
+  return matches;
 }
 
 function moveGameObjects(objectList) {
   // TODO 6: Move all game objects of a single type based on speeds
   for (var i = 0; i < objectList.length; i++) {
     var currentObject = objectList[i];
-    currentObject + speedX;
-    currentObject.x - currentLevel.speed;
+    currentObject += speedX - currentLevel.speed;
   }
 }
 
