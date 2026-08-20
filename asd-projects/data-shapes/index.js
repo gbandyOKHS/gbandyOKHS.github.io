@@ -35,13 +35,16 @@ $(document).ready(function () {
   /////////////////////////////////////////////////
 
   // TODO 1: create a new shape object and add it to the array
+  
+  // TODO 0 cpmplete
+  
   var shape = {
     color: "blue",
     shape: "circle",
     repeat: 3
   }
   dataShapes.push(shape);
-  // TODO 0 cpmplete
+  
   // TODO 2: add a new property to all data shapes
   for (var i = 0; i < dataShapes.length; i++) {
     var currentShape = dataShapes[i];
