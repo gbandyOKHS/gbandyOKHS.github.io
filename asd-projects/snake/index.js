@@ -100,7 +100,7 @@ function checkForNewDirection(event) {
     snake.head.direction = "right";
   } else if (activeKey === KEY.UP) {
     snake.head.direction = "up";
-  } else {
+  } else if (activeKey === KEY.DOWN){
     snake.head.direction = "down";
   }
 
@@ -172,11 +172,11 @@ function hasHitWall() {
   */
   if (snake.head.row < 0) {
     return true;
-  } else if (snake.head.row >= ROWS) {
+  } else if (snake.head.row >= ROWS + 1) {
     return true;
   } else if (snake.head.column < 0) {
     return true;
-  } else if (snake.head.column >= COLUMNS) {
+  } else if (snake.head.column >= COLUMNS + 1) {
     return true;
   }
 
@@ -192,8 +192,8 @@ function hasCollidedWithApple() {
     HINT: Both the apple and the snake's head are aware of their own row and column
   */
   if (snake.head.row === apple.row) {
-   if (snake.head.column === apple.column) {
-    return true;
+    if (snake.head.column === apple.column) {
+      return true;
     }
   }
 
@@ -368,7 +368,7 @@ function getRandomAvailablePosition() {
       not occupied by a snakeSquare in the snake's body. If it is then set 
       spaceIsAvailable to false so that a new position is generated.
     */
-    for(var i = 1; i <= snake.body.length - 1; i++) {
+    for(var i = 0; i <= snake.body.length - 1; i++) {
       if (snake.body[i].row === randomPosition.row) {
         if (snake.body[i].column === randomPosition.column) {
           spaceIsAvailable = false;
