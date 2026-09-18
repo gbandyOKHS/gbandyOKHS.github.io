@@ -54,11 +54,10 @@ function makeGhost(id) {
   ghost.y = (Math.random() * maxY + ghostRadius) < boardHeight;
   ghost.speedX = decideSpeed();
   ghost.speedY = decideSpeed();
-  ghost.width = parseInt($(".ghost").css("width"));
-  ghost.height = parseInt($(".ghost").css("height"));
+  ghost.width = 50; //~~parseInt($(".ghost").css("width"));
+  ghost.height = 50; //~~parseInt($(".ghost").css("height"));
   ghost.rightX = ghost.x + ghost.width;
   ghost.bottomY = ghost.y + ghost.height;
-  console.log(ghost.width, ghost.height);
   // assign a random color for the ghost's glow
   const colors = [
     "#00f",
@@ -110,7 +109,7 @@ function update() {
   // loop over the ghosts array. We use the maxGhosts variable instead of ghosts.length
   // to make seeing issues in the debugger slightly easier (in practice, you should use
   // ghosts.length, but do NOT change it here)
-  for (var i = 1; i < maxGhosts; i++) {
+  for (var i = 0; i < maxGhosts; i++) {
     var ghost = ghosts[i];
 
     // move the ghost
