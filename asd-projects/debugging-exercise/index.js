@@ -50,11 +50,15 @@ function makeGhost(id) {
 
   // this gives the ghost object all of the data that it needs to store
   ghost.id = "#" + id;
-  ghost.x = Math.random() * maxX + ghostRadius;
-  ghost.y = Math.random() * maxY + ghostRadius;
+  ghost.x = (Math.random() * maxX + ghostRadius) < boardWidth;
+  ghost.y = (Math.random() * maxY + ghostRadius) < boardHeight;
   ghost.speedX = decideSpeed();
   ghost.speedY = decideSpeed();
-
+  ghost.width = parseInt($(".ghost").css("width"));
+  ghost.height = parseInt($(".ghost").css("height"));
+  ghost.rightX = ghost.x + ghost.width;
+  ghost.bottomY = ghost.y + ghost.height;
+  console.log(ghost.width, ghost.height);
   // assign a random color for the ghost's glow
   const colors = [
     "#00f",
@@ -106,7 +110,7 @@ function update() {
   // loop over the ghosts array. We use the maxGhosts variable instead of ghosts.length
   // to make seeing issues in the debugger slightly easier (in practice, you should use
   // ghosts.length, but do NOT change it here)
-  for (var i = 0; i < maxGhosts; i++) {
+  for (var i = 1; i < maxGhosts; i++) {
     var ghost = ghosts[i];
 
     // move the ghost
@@ -131,6 +135,8 @@ function update() {
 function moveGhost(ghost) {
   ghost.x += ghost.speedX;
   ghost.y += ghost.speedY;
+  ghost.rightX += ghost.speedX;
+  ghost.bottomY += ghost.speedY;
 }
 
 // this bounces ghosts if they hit a wall
@@ -141,7 +147,7 @@ function bounceGhost(ghost) {
     ghost.speedX *= -1;
   }
   // this bounces off the right wall
-  else if (ghost.x >= boardWidth) {
+  else if (ghost.rightX >= boardWidth) {
     ghost.x -= ghost.speedX;
     ghost.speedX *= -1;
   }
@@ -151,7 +157,7 @@ function bounceGhost(ghost) {
     ghost.speedY *= -1;
   }
   // this bounces off the bottom wall
-  else if (ghost.y >= boardHeight) {
+  else if (ghost.bottomY >= boardHeight) {
     ghost.y -= ghost.speedY;
     ghost.speedY *= -1;
   }

@@ -7,7 +7,7 @@ $(document).ready(function () {
     .css("position", "absolute")
     .css("top", 50)
     .css("left", 50)
-    .appendTo("<div>");
+    .appendTo("#die");
 
   function makeDot(top, left, elementID) {
     $("<div>")
