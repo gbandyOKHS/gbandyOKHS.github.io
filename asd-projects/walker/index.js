@@ -18,9 +18,22 @@ function runProgram(){
     UP: 38,
     RIGHT: 39,
     DOWN: 40,
+    W: 87,
+    A: 65,
+    S: 83,
+    D: 68
   };
 
   var walker = {
+    "x": 0,
+    "y": 0,
+    "speedX": 0,
+    "speedY": 0,
+    "width": parseInt($("#walker").css("width")),
+    "height": parseInt($("#walker").css("height")),
+  };
+
+  var walker2 = {
     "x": 0,
     "y": 0,
     "speedX": 0,
@@ -63,7 +76,7 @@ function runProgram(){
   Note: You can have multiple event handlers for different types of events.
   */
   function handleKeyDown(event) {
-    //console.log(event.which);
+    console.log(event.which);
     if (event.which === KEY.LEFT) {
       console.log("left pressed");
     }
