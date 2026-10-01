@@ -6,14 +6,17 @@ $(document).ready(function () {
 
 // this section initializes some variables that will be used throughout the program
 var doubleMaxSpeed = 5;
-var maxGhosts = 10;
+var maxGhosts = 25;
 var $board = $("#board");
 var boardWidth = $($board).width();
 var boardHeight = $($board).height();
 var ghosts = [];
 var ghostRadius = 10;
+//Width and Height are hardcoded//
+var ghostWidth = 50;
+var ghostHeight = 50;
 // modify these values if you want faster moving ghosts or a shorter countdown timer
-const FPS = 25;
+const FPS = 20;
 const initialDelay = 5_000;
 
 //////////
@@ -45,19 +48,17 @@ function makeGhost(id) {
   var ghost = {};
 
   // this creates some useful variables that are not directly placed in the object
-  var maxX = boardWidth - ghostRadius * 2;
-  var maxY = boardHeight - ghostRadius * 2;
+  var maxX = boardWidth - ghostWidth;
+  var maxY = boardHeight - ghostHeight;
 
   // this gives the ghost object all of the data that it needs to store
   ghost.id = "#" + id;
-  ghost.x = (Math.random() * maxX + ghostRadius) < boardWidth;
-  ghost.y = (Math.random() * maxY + ghostRadius) < boardHeight;
+  ghost.x = Math.random() * maxX;
+  ghost.y = Math.random() * maxY;
   ghost.speedX = decideSpeed();
   ghost.speedY = decideSpeed();
-  ghost.width = 50; //~~parseInt($(".ghost").css("width"));
-  ghost.height = 50; //~~parseInt($(".ghost").css("height"));
-  ghost.rightX = ghost.x + ghost.width;
-  ghost.bottomY = ghost.y + ghost.height;
+  ghost.rightX = ghost.x + ghostWidth;
+  ghost.bottomY = ghost.y + ghostHeight;
   // assign a random color for the ghost's glow
   const colors = [
     "#00f",
@@ -95,7 +96,6 @@ function addNewGhostElement(ghost, id) {
     .css("left", ghost.x)
     .css("top", ghost.y)
     .addClass("ghost");
-
   // this inserts the ghost's HTML into your website
   $ghost.appendTo($board);
 }
