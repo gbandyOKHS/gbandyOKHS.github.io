@@ -53,7 +53,8 @@ function runProgram(){
   Note: You can have multiple event listeners for different types of events.
   */
   $(document).on('keydown', handleKeyDown);
-  $(document).on("keyup", handleKeyUp);                          
+  $(document).on("keyup", handleKeyUp);
+  $(document).on("click", randomColor);                          
 
   ////////////////////////////////////////////////////////////////////////////////
   ///////////////////////// CORE LOGIC ///////////////////////////////////////////
@@ -90,7 +91,7 @@ function runProgram(){
       console.log("down pressed");
     }
     
-    //This allows the user to control the movement of the box.//
+    //This allows the user to control the movement of the box//
     if (event.which === KEY.LEFT) {
       walker.speedX = -5;
     }
@@ -103,10 +104,24 @@ function runProgram(){
     if (event.which === KEY.DOWN) {
       walker.speedY = 5; 
     }
+
+    //This allows the user to control the second box//
+    if (event.which === KEY.A) {
+      walker2.speedX = -5;
+    }
+    if (event.which === KEY.D) {
+      walker2.speedX = 5;
+    }
+    if (event.which === KEY.W) {
+      walker2.speedY = -5;
+    }
+    if (event.which === KEY.S) {
+      walker2.speedY = 5; 
+    }
   }
-  //This stops the box from moving when a key is released.//
+  //This stops the boxes from moving when a key is released//
   function handleKeyUp(event) {
-     if (event.which === KEY.LEFT) {
+    if (event.which === KEY.LEFT) {
       walker.speedX = 0;
     }
     if (event.which === KEY.RIGHT) {
@@ -118,26 +133,59 @@ function runProgram(){
     if (event.which === KEY.DOWN) {
       walker.speedY = 0; 
     }
+
+    if (event.which === KEY.A) {
+      walker2.speedX = 0;
+    }
+    if (event.which === KEY.D) {
+      walker2.speedX = 0;
+    }
+    if (event.which === KEY.W) {
+      walker2.speedY = 0;
+    }
+    if (event.which === KEY.S) {
+      walker2.speedY = 0; 
+    }
+  }
+
+  //On any mouse click, the color of the boxes will change//
+  function randomColor() {
+    var randomColor = "#000000".replace(/0/g, function () {
+      return (~~(Math.random() * 16)).toString(16);
+    });
+
+    var randomColor2 = "#000000".replace(/0/g, function () {
+      return (~~(Math.random() * 16)).toString(16);
+    });
+
+    $("#walker").css("background-color", randomColor);
+    $("#walker2").css("background-color", randomColor2);
   }
 
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-  
+  //This allows the boxes to visually move//
   function repositionGameItem() {
     walker.x += walker.speedX;
     walker.y += walker.speedY;
+    walker2.x += walker2.speedX;
+    walker2.y += walker2.speedY;
   }
-  
+  //This redraws the boxes to their new position//  
   function redrawGameItem() {
     $("#walker").css("left", walker.x);
     $("#walker").css("top", walker.y);
+    $("#walker2").css("left", walker2.x);
+    $("#walker2").css("top", walker2.y);
   }
   //Tests to see if the box has collided with the boundary.//
   function wallCollision() {
     walker.right = walker.x + walker.width;
     walker.bottom = walker.y + walker.height;
-    
+    walker2.right = walker2.x + walker2.width;
+    walker2.bottom = walker2.y + walker2.height;
+
     if (walker.x <= 0) {
       walker.x -= walker.speedX;
     }
@@ -152,6 +200,23 @@ function runProgram(){
 
     if (walker.bottom >= $("#board").height()) {
       walker.y -= walker.speedY;
+    }
+    
+    //Code for the second box//
+    if (walker2.x <= 0) {
+      walker2.x -= walker2.speedX;
+    }
+
+    if (walker2.y <= 0) {
+      walker2.y -= walker2.speedY;
+    }
+
+    if (walker2.right >= $("#board").width()) {
+      walker2.x -= walker2.speedX;
+    }
+
+    if (walker2.bottom >= $("#board").height()) {
+      walker2.y -= walker2.speedY;
     }
   }
 
