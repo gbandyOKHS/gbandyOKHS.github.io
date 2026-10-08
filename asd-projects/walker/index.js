@@ -10,8 +10,10 @@ function runProgram(){
   // Constant Variables
   var FRAME_RATE = 60;
   var FRAMES_PER_SECOND_INTERVAL = 1000 / FRAME_RATE;
-
+  console.log(Math.ceil($("#board").height()));
   // Game Item Objects
+  
+  //This object stores the values of which key was pressed//
   const KEY = {
     ENTER: 13,
     LEFT: 37,
@@ -24,15 +26,16 @@ function runProgram(){
     D: 68
   };
 
+  //Creates the walker object//
   var walker = {
     "x": 0,
     "y": 0,
     "speedX": 0,
     "speedY": 0,
-    "width": parseInt($("#walker").css("width")),
-    "height": parseInt($("#walker").css("height")),
+    "width": $("#walker").width(),
+    "height": $("#walker").height(),
   };
-
+  //Creates the seond walker//
   var walker2 = {
     "x": 0,
     "y": 0,
@@ -41,8 +44,7 @@ function runProgram(){
     "width": parseInt($("#walker").css("width")),
     "height": parseInt($("#walker").css("height")),
   };
-
-
+  
   // one-time setup
   var interval = setInterval(newFrame, FRAMES_PER_SECOND_INTERVAL);   // execute newFrame every 0.0166 seconds (60 Frames per second)
 
@@ -76,33 +78,26 @@ function runProgram(){
   
   Note: You can have multiple event handlers for different types of events.
   */
+  
+  //This function makes the box move if a specific key is pressed//
   function handleKeyDown(event) {
     console.log(event.which);
-    if (event.which === KEY.LEFT) {
-      console.log("left pressed");
-    }
-    if (event.which === KEY.RIGHT) {
-      console.log("right pressed");
-    }
-    if (event.which === KEY.UP) {
-      console.log("up pressed");
-    }
-    if (event.which === KEY.DOWN) {
-      console.log("down pressed");
-    }
-    
     //This allows the user to control the movement of the box//
     if (event.which === KEY.LEFT) {
       walker.speedX = -5;
+      console.log("left pressed");
     }
     if (event.which === KEY.RIGHT) {
       walker.speedX = 5;
+      console.log("right pressed");
     }
     if (event.which === KEY.UP) {
       walker.speedY = -5;
+      console.log("up pressed");
     }
     if (event.which === KEY.DOWN) {
-      walker.speedY = 5; 
+      walker.speedY = 5;
+      console.log("down pressed");
     }
 
     //This allows the user to control the second box//
@@ -121,35 +116,26 @@ function runProgram(){
   }
   //This stops the boxes from moving when a key is released//
   function handleKeyUp(event) {
-    if (event.which === KEY.LEFT) {
+    if (event.which === KEY.LEFT || event.which === KEY.RIGHT) {
       walker.speedX = 0;
     }
-    if (event.which === KEY.RIGHT) {
-      walker.speedX = 0;
-    }
-    if (event.which === KEY.UP) {
+    
+    if (event.which === KEY.UP || event.which === KEY.DOWN) {
       walker.speedY = 0;
     }
-    if (event.which === KEY.DOWN) {
-      walker.speedY = 0; 
-    }
-
-    if (event.which === KEY.A) {
+    
+    if (event.which === KEY.A || event.which === KEY.D) {
       walker2.speedX = 0;
     }
-    if (event.which === KEY.D) {
-      walker2.speedX = 0;
-    }
-    if (event.which === KEY.W) {
+    
+    if (event.which === KEY.W || event.which === KEY.S) {
       walker2.speedY = 0;
-    }
-    if (event.which === KEY.S) {
-      walker2.speedY = 0; 
     }
   }
 
   //On any mouse click, the color of the boxes will change//
   function randomColor() {
+    //This creates a random color//
     var randomColor = "#000000".replace(/0/g, function () {
       return (~~(Math.random() * 16)).toString(16);
     });
@@ -165,61 +151,47 @@ function runProgram(){
   ////////////////////////////////////////////////////////////////////////////////
   ////////////////////////// HELPER FUNCTIONS ////////////////////////////////////
   ////////////////////////////////////////////////////////////////////////////////
-  //This allows the boxes to visually move//
+  //This allows the boxes to move//
   function repositionGameItem() {
     walker.x += walker.speedX;
     walker.y += walker.speedY;
     walker2.x += walker2.speedX;
     walker2.y += walker2.speedY;
   }
-  //This redraws the boxes to their new position//  
+  //This redraws the boxes to their new position visually//  
   function redrawGameItem() {
     $("#walker").css("left", walker.x);
     $("#walker").css("top", walker.y);
     $("#walker2").css("left", walker2.x);
     $("#walker2").css("top", walker2.y);
   }
-  //Tests to see if the box has collided with the boundary.//
+  //Tests to see if the box has collided with any of the boundary walls.//
   function wallCollision() {
     walker.right = walker.x + walker.width;
     walker.bottom = walker.y + walker.height;
     walker2.right = walker2.x + walker2.width;
     walker2.bottom = walker2.y + walker2.height;
-
-    if (walker.x <= 0) {
+    
+    //Code for the first box//
+    if (walker.x < 0 || walker.right > Math.ceil($("#board").height())) {
       walker.x -= walker.speedX;
     }
 
-    if (walker.y <= 0) {
-      walker.y -= walker.speedY;
-    }
-
-    if (walker.right >= $("#board").width()) {
-      walker.x -= walker.speedX;
-    }
-
-    if (walker.bottom >= $("#board").height()) {
+    if (walker.y < 0 || walker.bottom > Math.ceil($("#board").height())) {
       walker.y -= walker.speedY;
     }
     
     //Code for the second box//
-    if (walker2.x <= 0) {
+    if (walker2.x < 0 || walker2.right > Math.ceil($("#board").height())) {
       walker2.x -= walker2.speedX;
     }
 
-    if (walker2.y <= 0) {
-      walker2.y -= walker2.speedY;
-    }
-
-    if (walker2.right >= $("#board").width()) {
-      walker2.x -= walker2.speedX;
-    }
-
-    if (walker2.bottom >= $("#board").height()) {
+    if (walker2.y < 0 || walker2.bottom > Math.ceil($("#board").height())) {
       walker2.y -= walker2.speedY;
     }
   }
 
+  //This ends the game//
   function endGame() {
     // stop the interval timer
     clearInterval(interval);
