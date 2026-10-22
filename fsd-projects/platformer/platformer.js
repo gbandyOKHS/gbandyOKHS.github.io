@@ -62,13 +62,13 @@ createCollectable("coin", 1025, 260);
 
     
     // TODO 4 - Create Cannons
-createCannon("left", 475, 9999);
-createCannon("bottom", 1250, 9999);
-createCannon("bottom", 818, 9999);
-createCannon("right", 500, 9999);
-createCannon("bottom", 0, 9999);
-createCannon("left", -50, 0);
-createCannon("right", 68, 0);
+createCannon("left", 475, 1550);
+createCannon("bottom", 1250, 1000);
+createCannon("bottom", 818, 2500);
+createCannon("right", 500, 5000);
+createCannon("bottom", 0, 1200);
+createCannon("left", -50, 10);
+createCannon("right", 68, 10);
 createCannon("bottom", 345, 2000000000);
     
     //////////////////////////////////

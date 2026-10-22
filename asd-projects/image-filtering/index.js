@@ -34,6 +34,11 @@ function applyAndRender() {
 /////////////////////////////////////////////////////////
 
 // TODO 1, 2, 3 & 5: Create the applyFilter function here
+/*This function takes in a filter and gets each individual square
+it then converts the squares rgb value from a string into a array
+then applies the filter to the pixel, converts it back to a string
+updates the current pixel to the new pixel
+*/
 function applyFilter(filterFunction) {
   for (var i = 0; i < image.length; i++) {
     var row = image[i];
@@ -50,6 +55,7 @@ function applyFilter(filterFunction) {
 }
 
 // TODO 9 Create the applyFilterNoBackground function
+//This function will apply the filter to everything but the background//
 function applyFilterNoBackground(filterFunction) {
   var backgroundColor = image[0][0];
   for (var i = 0; i < image.length; i++) {
@@ -86,18 +92,20 @@ console.log(keepInBounds(125)); // should print 125
 */
 
 // TODO 4: Create reddify filter function
+//This filter increases the red rgb value//
 function reddify(pixelArray) {
   pixelArray[RED] = 200;
 }
 
 
 // TODO 7 & 8: Create more filter functions
+//This filter decreases the blue rgb value until it is 0//
 function decreaseBlue(pixelArray) {
   var newBlue = pixelArray[BLUE];
   newBlue -= 50;
   pixelArray[BLUE] = keepInBounds(newBlue);
 }
-
+//This filter decreases the green rgb value by the blue rgb value//
 function increaseGreenByBlue(pixelArray) {
   var newGreen = pixelArray[GREEN] + pixelArray[BLUE];
   pixelArray[GREEN] = keepInBounds(newGreen);
