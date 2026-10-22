@@ -24,6 +24,7 @@ function applyAndRender() {
   applyFilterNoBackground(reddify);
   applyFilter(increaseGreenByBlue);
   applyFilterNoBackground(decreaseBlue);
+  applyFilter(invertColor);
 
   // do not change the below line of code
   render($("#display"), image);
@@ -92,7 +93,7 @@ console.log(keepInBounds(125)); // should print 125
 */
 
 // TODO 4: Create reddify filter function
-//This filter increases the red rgb value//
+//This filter changes the red rgb value//
 function reddify(pixelArray) {
   pixelArray[RED] = 200;
 }
@@ -112,3 +113,8 @@ function increaseGreenByBlue(pixelArray) {
 }
 
 // CHALLENGE code goes below here
+function invertColor(pixelArray) {
+  keepInBounds(pixelArray[RED] = 255 - pixelArray[RED]);
+  keepInBounds(pixelArray[BLUE] = 255 - pixelArray[BLUE]);
+  keepInBounds(pixelArray[GREEN] = 255 - pixelArray[GREEN]);
+}
