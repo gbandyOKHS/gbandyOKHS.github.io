@@ -93,26 +93,36 @@ console.log(keepInBounds(125)); // should print 125
 */
 
 // TODO 4: Create reddify filter function
-//This filter changes the red rgb value//
+//This filter changes the red rgb value to be 200//
 function reddify(pixelArray) {
   pixelArray[RED] = 200;
 }
 
 
 // TODO 7 & 8: Create more filter functions
-//This filter decreases the blue rgb value until it is 0//
+/*
+This filter decreases the blue rgb value by 50 each time the function is called
+until it is 0
+*/
 function decreaseBlue(pixelArray) {
   var newBlue = pixelArray[BLUE];
   newBlue -= 50;
   pixelArray[BLUE] = keepInBounds(newBlue);
 }
-//This filter decreases the green rgb value by the blue rgb value//
+/*
+This filter modifies the green rgb value by 
+adding the blue rgb value to the green rgb value
+*/
 function increaseGreenByBlue(pixelArray) {
   var newGreen = pixelArray[GREEN] + pixelArray[BLUE];
   pixelArray[GREEN] = keepInBounds(newGreen);
 }
 
 // CHALLENGE code goes below here
+/*
+This filter inverts the current color by 
+subtracting each color channel from 255.
+*/
 function invertColor(pixelArray) {
   keepInBounds(pixelArray[RED] = 255 - pixelArray[RED]);
   keepInBounds(pixelArray[BLUE] = 255 - pixelArray[BLUE]);
